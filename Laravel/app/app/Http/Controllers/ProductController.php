@@ -7,7 +7,6 @@ use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
-    // Ініціалізація продуктів у сесії, якщо її ще немає
     private function initSessionProducts(): void
     {
         if (!session()->has('products')) {
