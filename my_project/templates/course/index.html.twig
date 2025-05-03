@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Course index{% endblock %}
+
+{% block body %}
+    <h1>Course index</h1>
+
+    <form method="get">
+        <input type="text" name="name" placeholder="Назва курсу" value="{{ app.request.get('name') }}">
+        <input type="number" name="itemsPerPage" value="{{ app.request.get('itemsPerPage', 10) }}" min="1">
+        <button type="submit">Фільтрувати</button>
+    </form>
+
+    <ul>
+        {% for course in pagination %}
+            <li>{{ course.name }}</li>
+        {% else %}
+            <li>Курсів не знайдено.</li>
+        {% endfor %}
+    </ul>
+
+    {{ knp_pagination_render(pagination) }}
+    <a href="{{ path('app_course_new') }}">Створити новий курс</a>
+
+{% endblock %}
