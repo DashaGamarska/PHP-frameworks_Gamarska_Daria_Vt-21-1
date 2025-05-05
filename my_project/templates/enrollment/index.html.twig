@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Список записів{% endblock %}
+
+{% block body %}
+    <h1>Список записів</h1>
+
+    <form method="get">
+        <input type="text" name="student" placeholder="Ім'я студента" value="{{ app.request.get('student') }}">
+        <input type="text" name="course" placeholder="Назва курсу" value="{{ app.request.get('course') }}">
+        <input type="number" name="itemsPerPage" min="1" max="100" value="{{ app.request.get('itemsPerPage', 10) }}">
+        <button type="submit">Фільтрувати</button>
+    </form>
+
+    <ul>
+        {% for enrollment in pagination %}
+            <li>
+                Студент: {{ enrollment.student ? enrollment.student.name : '—' }},
+                Курс: {{ enrollment.course ? enrollment.course.name : '—' }}
+            </li>
+        {% else %}
+            <li>Записів не знайдено.</li>
+        {% endfor %}
+    </ul>
+
+    {{ knp_pagination_render(pagination) }}
+
+    <a href="{{ path('app_enrollment_new') }}">Створити новий запис</a>
+{% endblock %}

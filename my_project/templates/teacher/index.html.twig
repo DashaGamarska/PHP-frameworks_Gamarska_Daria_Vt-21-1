@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Teacher index{% endblock %}
+
+{% block body %}
+    <h1>Teacher index</h1>
+
+    <form method="get">
+        <input type="text" name="name" placeholder="Ім'я викладача" value="{{ app.request.get('name') }}">
+        <input type="number" name="itemsPerPage" value="{{ app.request.get('itemsPerPage', 10) }}" min="1">
+        <button type="submit">Фільтрувати</button>
+    </form>
+
+    <ul>
+        {% for teacher in pagination %}
+            <li>{{ teacher.name }} ({{ teacher.email }})</li>
+        {% else %}
+            <li>Викладачів не знайдено.</li>
+        {% endfor %}
+    </ul>
+
+    {{ knp_pagination_render(pagination) }}
+    <a href="{{ path('app_teacher_new') }}">Створити нового викладача</a>
+
+{% endblock %}

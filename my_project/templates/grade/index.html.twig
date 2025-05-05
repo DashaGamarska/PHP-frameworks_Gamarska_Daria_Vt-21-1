@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Grade index{% endblock %}
+
+{% block body %}
+    <h1>Grade index</h1>
+
+    <form method="get">
+        <input type="number" step="0.1" name="score" placeholder="Оцінка" value="{{ app.request.get('score') }}">
+        <input type="number" name="itemsPerPage" value="{{ app.request.get('itemsPerPage', 10) }}" min="1">
+        <button type="submit">Фільтрувати</button>
+    </form>
+
+    <ul>
+        {% for grade in pagination %}
+            <li>Оцінка: {{ grade.score }}</li>
+        {% else %}
+            <li>Оцінок не знайдено.</li>
+        {% endfor %}
+    </ul>
+
+    {{ knp_pagination_render(pagination) }}
+    <a href="{{ path('app_grade_new') }}">Додати оцінку</a>
+
+{% endblock %}
